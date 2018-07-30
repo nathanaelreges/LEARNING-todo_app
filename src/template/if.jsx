@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default props => {
+const If = props => {
    if(props.test){
       return <div>{props.children}</div>
    }
@@ -8,3 +8,5 @@ export default props => {
       return null
    }
 }
+
+export default If

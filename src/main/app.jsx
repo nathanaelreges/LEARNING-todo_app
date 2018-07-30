@@ -6,7 +6,7 @@ import Menu from '../template/menu'
 import { Route, Redirect, Switch } from 'react-router-dom'
 
 
-export default props => <div>
+const App = props => <div>
    <Menu />
    <Switch>
       <Route path="/todos" component={Todo} />
@@ -14,3 +14,5 @@ export default props => <div>
       <Redirect from="*" to="/todos" />
    </Switch>
 </div>
+
+export default App

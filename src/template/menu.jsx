@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
-export default props => (
+const Menu = props => (
    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
          <Link to="/" className="navbar-brand">
@@ -24,3 +24,5 @@ export default props => (
       </div>
    </nav>
 )
+
+export default Menu
