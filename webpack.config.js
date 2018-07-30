@@ -16,6 +16,7 @@ module.exports = {
 
    devServer: {
       contentBase: __dirname + '/dist',
+      historyApiFallback: true,
       hot: true,
       compress: true,
       open: true
