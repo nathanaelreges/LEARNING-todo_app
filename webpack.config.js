@@ -7,15 +7,15 @@ module.exports = {
 
    output: {
       path: __dirname + '/dist',
-      fileName: 'bundle.js'
+      filename: 'bundle.js'
    },
 
    mode: 'development',
 
    devtool: 'inline-source-map',
-   
+
    devServer: {
-      contentBase: path.join(__dirname, '/.././dist'),
+      contentBase: __dirname + '/dist',
       hot: true,
       compress: true,
       open: true
@@ -38,9 +38,9 @@ module.exports = {
    module: {
       rules: [{
          test: /.js[x]?$/,
+         exclude: /node_modules/,
          use: [{
             loader: 'babel-loader',
-            exclude: /node_modules/,
             options: {
                presets: ['babel-preset-env', 'react'],
                plugins: ['transform-object-rest-spread']
