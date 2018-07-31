@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 
 const Menu = props => (
-   <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container">
+   <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+      <div className="container-fluid d-flex justify-content-between">
          <Link to="/" className="navbar-brand">
             <i className="fa fa-calendar-check-o"></i> TodoApp
          </Link>

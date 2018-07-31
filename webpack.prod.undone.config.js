@@ -19,7 +19,8 @@ module.exports = {
       port: 3030,
       historyApiFallback: true,
       hot: true,
-      compress: true
+      compress: true,
+      open: true
    },
 
    resolve: {
@@ -30,6 +31,9 @@ module.exports = {
    },
 
    plugins: [
+      new MiniCssExtractPlugin({
+         filename: 'bundle.css'
+      }),
       new webpack.HotModuleReplacementPlugin()
    ],
 
@@ -47,7 +51,11 @@ module.exports = {
       },
       {
          test: /\.css/,
-         loader: 'style-loader!css-loader'
+         use: [{
+            loader: MiniCssExtractPlugin.loader
+         },
+            'css-loader'
+         ]
       },
       {
          test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,

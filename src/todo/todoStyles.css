@@ -1,0 +1,7 @@
+.todo__text--done {
+   text-decoration: line-through;
+}
+
+.todo-list__col-btn {
+   width: 190px;
+}
