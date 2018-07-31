@@ -7,7 +7,7 @@ const renderList = (data, onRemove, onCheck, onUncheck) => (
       <tr key={x._id}>
          <td className={x.done?'todo__text--done':''} >{x.description}</td>
          <td>
-            <IconBtn style="sucess" icon="check" 
+            <IconBtn style="success" icon="check" 
                onClick={()=>onCheck(x._id)} hide={x.done}
             />
             <IconBtn style="warning" icon="undo" 
@@ -35,8 +35,7 @@ const TodoList = props => (
       </thead>
       <tbody>
          {renderList(props.data, props.onRemove, props.onCheck, props.onUncheck)}
-      </tbody>
-      
+      </tbody>     
    </table>
 )
 

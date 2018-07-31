@@ -2,19 +2,42 @@ import React, { Component } from 'react'
 import IconBtn from '../template/iconBtn'
 import GridCol from '../template/gridCol'
 
-export default class TudoForm extends Component {
-   render () {
-      return <div role="form" className="todoForm row">
-         <GridCol sm="12" md="9" lg="10">
-            <input type="text" id="description" 
-               className="form-control" placeholder="Adicione uma tarefa"
-               value={this.props.description} onChange={this.props.onChange}
-            />
-         </GridCol>
-         <GridCol sm="12" md="3" lg="2">
-            <IconBtn style="primary" icon="plus" onClick={this.props.onAdd}/>
-            <IconBtn style="secondary" icon="search" onClick={this.props.onSearch} />
-         </GridCol>
-      </div>
+
+
+
+
+const TodoForm = props => {
+   const handleKeyPress = e => {
+      if(e.key == 'Enter') {
+         if(e.shiftKey) {
+            props.onSearch()
+         }
+         else{
+            props.onAdd()
+         }
+      }
+      else
+      if(e.key == 'Escape') {
+         props.onClear()
+      }
    }
+
+   return <div role="form" className="todoForm row">
+      <GridCol sm="12" md="8" lg="9">
+         <input type="text" id="description" onKeyUp={handleKeyPress}
+            className="form-control" placeholder="Adicione uma tarefa"
+            value={props.description} onChange={props.onChange}
+         />
+      </GridCol>
+      <GridCol sm="12" md="4" lg="3">
+         <div className="mt-3 mt-md-0">
+            <IconBtn style="primary" icon="plus" onClick={props.onAdd}/>
+            <IconBtn style="secondary" icon="search" onClick={props.onSearch} />
+            <IconBtn style="default" icon="times" onClick={props.onClear} />
+         </div>
+      </GridCol>
+   </div>
 }
+
+
+export default TodoForm

@@ -19,6 +19,7 @@ export default class Todo extends Component {
       this.handleCheck = this.handleCheck.bind(this)
       this.handleUncheck = this.handleUncheck.bind(this)
       this.handleSearch = this.handleSearch.bind(this)
+      this.handleClear = this.handleClear.bind(this)
       this.refresh = this.refresh.bind(this)
 
       this.refresh()
@@ -28,16 +29,16 @@ export default class Todo extends Component {
      
    }
 
-   refresh () {
-      const description = this.state.description
+   refresh (description = '') {
       const needsSearch = description != ''
+      console.log(description)
       
       const search = needsSearch?`?description__regex=/${description}/i&`:''
       const sort = '?sort=date'
       
       axios.get(`${URL}/${search + sort}`)
          .then((res) => {
-            this.setState({ list: res.data })
+            this.setState({ description, list: res.data })
          }
       )
    }
@@ -55,20 +56,30 @@ export default class Todo extends Component {
    }
 
    handleRemove (id) {
-      axios.delete(URL + '/' + id).then(this.refresh)
+      axios.delete(URL + '/' + id).then(()=>
+         this.refresh(this.state.description)
+      )
    }
 
    handleCheck (id) {
       axios.put(URL + '/' + id, { done: 'true' })
-         .then(this.refresh)
+         .then(()=>
+            this.refresh(this.state.description)
+         )
    }
 
    handleUncheck (id) {
       axios.put(URL + '/' + id, { done: 'false' })
-         .then(this.refresh)
+         .then(()=>
+            this.refresh(this.state.description)
+         )
    }
 
    handleSearch () {
+      this.refresh(this.state.description)
+   }
+
+   handleClear () {
       this.refresh()
    }
 
@@ -79,6 +90,7 @@ export default class Todo extends Component {
             onAdd={this.handleAdd} 
             onChange={this.handleChange}
             onSearch={this.handleSearch}
+            onClear={this.handleClear}
          />
          <TodoList data={this.state.list} 
             onRemove={this.handleRemove}
