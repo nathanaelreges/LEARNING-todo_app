@@ -8,11 +8,12 @@ export default class TudoForm extends Component {
          <GridCol sm="12" md="9" lg="10">
             <input type="text" id="description" 
                className="form-control" placeholder="Adicione uma tarefa"
-               value={this.props.description} onChange={this.props.handleChange}
+               value={this.props.description} onChange={this.props.onChange}
             />
          </GridCol>
          <GridCol sm="12" md="3" lg="2">
-            <IconBtn style="primary" icon="plus" onClick={this.props.handleAdd}/>
+            <IconBtn style="primary" icon="plus" onClick={this.props.onAdd}/>
+            <IconBtn style="secondary" icon="search" onClick={this.props.onSearch} />
          </GridCol>
       </div>
    }

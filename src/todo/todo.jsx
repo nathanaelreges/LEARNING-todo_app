@@ -11,13 +11,14 @@ const URL = 'http://localhost:3000/api/todos'
 export default class Todo extends Component {
    constructor (props) {
       super(props)
-      this.state = {formDescription: "", list: []}
+      this.state = {description: "", list: []}
 
       this.handleAdd = this.handleAdd.bind(this)
       this.handleChange = this.handleChange.bind(this)
       this.handleRemove = this.handleRemove.bind(this)
       this.handleCheck = this.handleCheck.bind(this)
       this.handleUncheck = this.handleUncheck.bind(this)
+      this.handleSearch = this.handleSearch.bind(this)
       this.refresh = this.refresh.bind(this)
 
       this.refresh()
@@ -28,7 +29,13 @@ export default class Todo extends Component {
    }
 
    refresh () {
-      axios.get(URL + '/?sort=date')
+      const description = this.state.description
+      const needsSearch = description != ''
+      
+      const search = needsSearch?`?description__regex=/${description}/i&`:''
+      const sort = '?sort=date'
+      
+      axios.get(`${URL}/${search + sort}`)
          .then((res) => {
             this.setState({ list: res.data })
          }
@@ -36,22 +43,19 @@ export default class Todo extends Component {
    }
 
    handleChange (e) {
-      this.setState({formDescription: e.target.value})
+      this.setState({description: e.target.value})
    }
 
    handleAdd () {
-      const description = this.state.formDescription
-      console.log('ADD: ' + description)
-      axios.post(URL, { description }).then(
-         () => {this.refresh()}
-      )
+      const description = this.state.description
+      axios.post(URL, { description }).then(()=>{
+         this.setState({description: ''})
+         this.refresh()
+      })
    }
 
    handleRemove (id) {
-      console.log('DELETE: ' + id)
-      axios.delete(URL + '/' + id).then(
-         () => {this.refresh()}
-      )
+      axios.delete(URL + '/' + id).then(this.refresh)
    }
 
    handleCheck (id) {
@@ -64,11 +68,17 @@ export default class Todo extends Component {
          .then(this.refresh)
    }
 
+   handleSearch () {
+      this.refresh()
+   }
+
    render () {
       return <div className="container">
          <PageHeader name="Todo" small="Cadastro" />
-         <TodoForm description={this.state.formDescription} 
-            Add={this.handleAdd} handleChange={this.handleChange}
+         <TodoForm description={this.state.description} 
+            onAdd={this.handleAdd} 
+            onChange={this.handleChange}
+            onSearch={this.handleSearch}
          />
          <TodoList data={this.state.list} 
             onRemove={this.handleRemove}
