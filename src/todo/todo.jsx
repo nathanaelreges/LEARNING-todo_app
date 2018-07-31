@@ -16,6 +16,8 @@ export default class Todo extends Component {
       this.handleAdd = this.handleAdd.bind(this)
       this.handleChange = this.handleChange.bind(this)
       this.handleRemove = this.handleRemove.bind(this)
+      this.handleCheck = this.handleCheck.bind(this)
+      this.handleUncheck = this.handleUncheck.bind(this)
       this.refresh = this.refresh.bind(this)
 
       this.refresh()
@@ -52,13 +54,27 @@ export default class Todo extends Component {
       )
    }
 
+   handleCheck (id) {
+      axios.put(URL + '/' + id, { done: 'true' })
+         .then(this.refresh)
+   }
+
+   handleUncheck (id) {
+      axios.put(URL + '/' + id, { done: 'false' })
+         .then(this.refresh)
+   }
+
    render () {
       return <div className="container">
          <PageHeader name="Todo" small="Cadastro" />
          <TodoForm description={this.state.formDescription} 
-            handleAdd={this.handleAdd} handleChange={this.handleChange}
+            zzAdd={this.handleAdd} handleChange={this.handleChange}
          />
-         <TodoList data={this.state.list} onRemove={this.handleRemove}></TodoList>
+         <TodoList data={this.state.list} 
+            onRemove={this.handleRemove}
+            onCheck={this.handleCheck}
+            onUncheck={this.handleUncheck}
+         />
       </div>
    }
 }

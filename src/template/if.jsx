@@ -2,7 +2,7 @@ import React from 'react'
 
 const If = props => {
    if(props.test){
-      return <div>{props.children}</div>
+      return <i>{props.children}</i>
    }
    else {
       return null
