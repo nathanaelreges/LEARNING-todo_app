@@ -2,6 +2,8 @@ import React from 'react'
 import IconBtn from '../template/iconBtn'
 import './todoStyles.css'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import * as actions from './TodoActions'
 
 
 const renderList = (data = [], onRemove, onCheck, onUncheck) => (
@@ -22,6 +24,7 @@ const renderList = (data = [], onRemove, onCheck, onUncheck) => (
       </tr>
    ))
 )
+
 
 const TodoList = props => (
    <table className="table mt-5">
@@ -45,5 +48,11 @@ const mapStateToProps = state => ({
    list: state.todo.list
 })
 
+const mapDispatchToProps = dispatch => (
+   bindActionCreators({
+      onCheck: actions.markAsDone
+   }, dispatch)
+)
 
-export default connect(mapStateToProps)(TodoList)
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)

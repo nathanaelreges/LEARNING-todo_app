@@ -14,3 +14,8 @@ export const descriptionChange = value => ({
    type: 'TODO_DESCRIPTION_CHANGE',
    payload: value
 })
+
+export const markAsDone = id => (
+   axios.put(`${URL}/${id}`, {done: true})
+      .then(search)
+)
