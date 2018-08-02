@@ -10,3 +10,7 @@ export const search = () => (
    ))
 )
 
+export const descriptionChange = value => ({
+   type: 'TODO_DESCRIPTION_CHANGE',
+   payload: value
+})

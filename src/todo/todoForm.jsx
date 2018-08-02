@@ -21,12 +21,16 @@ const TodoForm = props => {
          props.onClear()
       }
    }
+   
+   const handleChange = e => {
+      props.onChange(e.target.value)
+   }
 
    return <div role="form" className="todoForm row">
       <GridCol sm="12" md="8" lg="9">
          <input type="text" id="description" onKeyUp={handleKeyPress}
             className="form-control" placeholder="Adicione uma tarefa"
-            value={props.description} onChange={props.onChange}
+            value={props.description} onChange={handleChange}
          />
       </GridCol>
       <GridCol sm="12" md="4" lg="3">
@@ -45,7 +49,8 @@ const mapStateToProps = state => ({
 
 const mapActionsToProps = dispatch => (
    bindActionCreators({
-      onSearch: actions.search
+      onSearch: actions.search,
+      onChange: actions.descriptionChange
    }, dispatch)
 )
 
