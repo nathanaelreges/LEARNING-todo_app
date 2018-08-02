@@ -1,15 +1,12 @@
-export const search = () => {
-   return {
-      type: 'TODO_SEARCH',
-      payload: [{
-         _id: 1,
-         description:'Terceira tarefa',
-         done: false
-      },
+import axios from 'axios'
+const URL = 'http://localhost:3000/api/todos'
+
+export const search = () => (
+   axios.get(URL).then(res => (
       {
-         _id: 2,
-         description:'Quarta tarefa',
-         done: false
-      }]
-   }
-}
+         type: 'TODO_SEARCH',
+         payload: res.data
+      }
+   ))
+)
+

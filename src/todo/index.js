@@ -1,5 +1,5 @@
-import reducer from './todoReducer'
-import Todo from './todo'
+import reducer from './TodoReducer'
+import Todo from './Todo'
 
 export {
    reducer as TodoReducer, 

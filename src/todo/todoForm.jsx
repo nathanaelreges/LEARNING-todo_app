@@ -3,7 +3,7 @@ import IconBtn from '../template/iconBtn'
 import GridCol from '../template/gridCol'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as actions from './todoActions'
+import * as actions from './TodoActions'
 
 
 const TodoForm = props => {

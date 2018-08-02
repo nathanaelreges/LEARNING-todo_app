@@ -4,7 +4,7 @@ import './todoStyles.css'
 import { connect } from 'react-redux'
 
 
-const renderList = (data, onRemove, onCheck, onUncheck) => (
+const renderList = (data = [], onRemove, onCheck, onUncheck) => (
    data.map(x => (
       <tr key={x._id}>
          <td className={x.done?'todo__text--done':''} >{x.description}</td>

@@ -3,8 +3,8 @@ import axios from 'axios'
 
 
 import PageHeader from '../template/pageHeader'
-import TodoForm from './todoForm'
-import TodoList from './todoList'
+import TodoForm from './TodoForm'
+import TodoList from './TodoList'
 
 const URL = 'http://localhost:3000/api/todos'
 
