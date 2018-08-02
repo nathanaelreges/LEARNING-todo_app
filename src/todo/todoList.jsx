@@ -51,7 +51,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => (
    bindActionCreators({
       onCheck: actions.markAsDone,
-      onUncheck: actions.markAsUndone
+      onUncheck: actions.markAsUndone,
+      onRemove: actions.remove
    }, dispatch)
 )
 

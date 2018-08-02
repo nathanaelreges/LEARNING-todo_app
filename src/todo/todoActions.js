@@ -1,8 +1,8 @@
 import axios from 'axios'
 const URL = 'http://localhost:3000/api/todos'
 
-export const search = () => (
-   axios.get(URL).then(res => (
+export const search = (description = '') => (
+   axios.get(`${URL}/?description__regex=/${description}/ig&?sort=date`).then(res => (
       {
          type: 'TODO_SEARCH',
          payload: res.data
@@ -25,6 +25,38 @@ export const markAsDone = id => (
 )
 
 export const markAsUndone = id => (
-   axios.put(`${URL}/${id}`, {done: false})
-      .then(search)
+   dispatch => {
+		axios.put(`${URL}/${id}`, {done: false})
+			.then(() => {
+				dispatch(search())
+			})
+	}
 )
+
+export const remove = id => (
+	dispatch => {
+		axios.delete(`${URL}/${id}`)
+			.then(()=> {
+				search().then((action)=>{
+					dispatch(action)
+				})
+			})
+	}
+)
+
+export const clear = () => (
+	dispatch => {
+		dispatch({type: 'TODO_CLEAR'})
+		dispatch(search())
+	}
+	
+)
+
+export const add = description => {
+	if(!description.trim()){
+		return { type: 'BYPASS'}
+	}
+
+	return axios.post(`${URL}`, { description })
+		.then(clear)
+}
