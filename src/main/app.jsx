@@ -6,6 +6,7 @@ import { Route, Redirect, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { combineReducers, createStore, applyMiddleware } from 'redux'
 import reduxPromise from 'redux-promise'
+import reduxThunk from 'redux-thunk'
 
 
 
@@ -13,7 +14,7 @@ const reducers = combineReducers({
    todo: TodoReducer
 })
 
-const store = applyMiddleware(reduxPromise)(createStore)(reducers)
+const store = applyMiddleware(reduxThunk, reduxPromise)(createStore)(reducers)
 
 
 const App = props => <Provider store={store}>

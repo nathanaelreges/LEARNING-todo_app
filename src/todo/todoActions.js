@@ -16,6 +16,15 @@ export const descriptionChange = value => ({
 })
 
 export const markAsDone = id => (
-   axios.put(`${URL}/${id}`, {done: true})
+   dispatch => {
+      axios.put(`${URL}/${id}`, {done: true})
+         .then(() => {
+            dispatch(search())
+         })
+   }
+)
+
+export const markAsUndone = id => (
+   axios.put(`${URL}/${id}`, {done: false})
       .then(search)
 )

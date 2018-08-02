@@ -50,9 +50,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => (
    bindActionCreators({
-      onCheck: actions.markAsDone
+      onCheck: actions.markAsDone,
+      onUncheck: actions.markAsUndone
    }, dispatch)
 )
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
