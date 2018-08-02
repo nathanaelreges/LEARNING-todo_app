@@ -1,7 +1,6 @@
 import React from 'react'
 import IconBtn from '../template/iconBtn'
 import './todoStyles.css'
-import { connect } from 'react-redux'
 
 const renderList = (data, onRemove, onCheck, onUncheck) => (
    data.map(x => (
@@ -35,14 +34,9 @@ const TodoList = props => (
          </tr>
       </thead>
       <tbody>
-         {renderList(props.list, props.onRemove, props.onCheck, props.onUncheck)}
+         {renderList(props.data, props.onRemove, props.onCheck, props.onUncheck)}
       </tbody>     
    </table>
 )
 
-const mapStateToProps = state => ({
-   list: state.todo.list
-})
-
-
-export default connect(mapStateToProps, null)(TodoList)
+export default TodoList

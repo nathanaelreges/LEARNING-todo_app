@@ -29,7 +29,7 @@ export default class Todo extends Component {
      
    }
 
-   refresh (description = '') {/*
+   refresh (description = '') {
       const needsSearch = description != ''
       const search = needsSearch?`?description__regex=/${description}/i&`:''
       const sort = '?sort=date'
@@ -38,7 +38,7 @@ export default class Todo extends Component {
          .then((res) => {
             this.setState({ description, list: res.data })
          }
-      )*/
+      )
    }
 
    handleChange (e) {
