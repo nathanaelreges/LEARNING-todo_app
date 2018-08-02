@@ -3,6 +3,7 @@ import IconBtn from '../template/iconBtn'
 import './todoStyles.css'
 import { connect } from 'react-redux'
 
+
 const renderList = (data, onRemove, onCheck, onUncheck) => (
    data.map(x => (
       <tr key={x._id}>
@@ -45,4 +46,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, null)(TodoList)
+export default connect(mapStateToProps)(TodoList)

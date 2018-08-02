@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import IconBtn from '../template/iconBtn'
 import GridCol from '../template/gridCol'
-
-
-
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as actions from './todoActions'
 
 
 const TodoForm = props => {
@@ -39,5 +39,14 @@ const TodoForm = props => {
    </div>
 }
 
+const mapStateToProps = state => ({
+   description: state.todo.description
+})
 
-export default TodoForm
+const mapActionsToProps = dispatch => (
+   bindActionCreators({
+      onSearch: actions.search
+   }, dispatch)
+)
+
+export default connect(mapStateToProps, mapActionsToProps)(TodoForm)
