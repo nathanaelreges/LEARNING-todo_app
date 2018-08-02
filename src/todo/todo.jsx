@@ -2,8 +2,17 @@ import React, { Component } from 'react'
 import PageHeader from '../template/pageHeader'
 import TodoForm from './TodoForm'
 import TodoList from './TodoList'
+import { mounted } from './TodoActions'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-export default class Todo extends Component {
+
+
+class Todo extends Component {
+   componentDidMount () {
+      this.props.mounted()
+   }
+
    render () {
       return <div className="container">
          <PageHeader name="Todo" small="Cadastro" />
@@ -12,3 +21,10 @@ export default class Todo extends Component {
       </div>
    }
 }
+
+
+const mapDispatchToProps = dispatch => (
+   bindActionCreators({mounted}, dispatch) 
+)
+
+export default connect(null, mapDispatchToProps)(Todo)

@@ -1,7 +1,7 @@
 import React from 'react'
 import IconBtn from '../template/iconBtn'
 import './todoStyles.css'
-import { connect } from 'react-redux'
+import { connect,  } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import * as actions from './TodoActions'
 

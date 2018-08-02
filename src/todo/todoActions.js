@@ -1,13 +1,20 @@
 import axios from 'axios'
 const URL = 'http://localhost:3000/api/todos'
 
-export const search = (description = '') => (
-   axios.get(`${URL}/?description__regex=/${description}/ig&?sort=date`).then(res => (
-      {
-         type: 'TODO_SEARCH',
-         payload: res.data
-      }
-   ))
+
+export const mounted = () => (search())
+
+export const search = () => (
+	(dispatch, getState) => {
+		const description = getState().todo.description.trim() || ''
+		const search = description? `?description__regex=/${description}/ig&` : ''
+		axios.get(`${URL}/${search}?sort=date`).then(res => (
+			dispatch({
+				type: 'TODO_SEARCH',
+				payload: res.data
+			})
+		))
+	}
 )
 
 export const descriptionChange = value => ({
@@ -37,9 +44,7 @@ export const remove = id => (
 	dispatch => {
 		axios.delete(`${URL}/${id}`)
 			.then(()=> {
-				search().then((action)=>{
-					dispatch(action)
-				})
+				dispatch(search())
 			})
 	}
 )
@@ -52,11 +57,16 @@ export const clear = () => (
 	
 )
 
-export const add = description => {
-	if(!description.trim()){
-		return { type: 'BYPASS'}
-	}
+export const add = () => (
+	(dispatch, getState) => {
+		const description = getState().todo.description
+		
+		/*if(!description.trim()){
+			return
+		}*/
 
-	return axios.post(`${URL}`, { description })
-		.then(clear)
-}
+		axios.post(`${URL}`, { description })
+			.then(()=>dispatch(clear()))
+		
+	}
+)
